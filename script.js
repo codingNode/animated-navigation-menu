@@ -1,74 +1,39 @@
 const menuBars = document.getElementById('menu-bars');
-const overlay = document.getElementById('overlay')
-const nav1= document.getElementById('nav-1');
-const nav2= document.getElementById('nav-2');
-const nav3= document.getElementById('nav-3');
-const nav4= document.getElementById('nav-4');
-const nav5= document.getElementById('nav-5');
+const overlay = document.getElementById('overlay');
+const navItems = overlay.getElementsByTagName('li');
 
+function navAnimation(toRemove,toAdd)
+{
+    
+    for(let i=0;0<navItems.length;i++)
+    {
+        const el=document.getElementById(navItems[i].id);
+        el.classList.replace(`slide-${toRemove}-${i+1}`,`slide-${toAdd}-${i+1}`);
+    }
+    
+}
 function toggleNav()
 {
     menuBars.classList.toggle('change');
-
     // Toggle Menu
-
     overlay.classList.toggle('overlay-active') //overlay-active used as boolean
 
     if(overlay.classList.contains('overlay-active'))
     {
-        overlay.classList.add('overlay-slide-right')
-        overlay.classList.remove('overlay-slide-left')
-
-        nav1.classList.add('slide-in-1')
-        nav1.classList.remove('slide-out-1')
         
-        nav2.classList.add('slide-in-2')
-        nav2.classList.remove('slide-out-2')
-
-        nav3.classList.add('slide-in-3')
-        nav3.classList.remove('slide-out-3')
-        
-        nav4.classList.add('slide-in-4')
-        nav4.classList.remove('slide-out-4')
-        
-        nav5.classList.add('slide-in-5')
-        nav5.classList.remove('slide-out-5')
-       
-        
+        overlay.classList.replace('overlay-slide-left','overlay-slide-right');// (to remove, toadd)
+        navAnimation('out','in')        // (to remove, toadd)
     }
     else
     {
-        overlay.classList.add('overlay-slide-left')
-        overlay.classList.remove('overlay-slide-right')
-        
-        nav1.classList.add('slide-out-1')
-        nav1.classList.remove('slide-in-1')
-        
-        
-
-        nav2.classList.add('slide-out-2')
-        nav2.classList.remove('slide-in-2')
-
-        nav3.classList.add('slide-out-3')
-        nav3.classList.remove('slide-in-3')
-
-        nav4.classList.add('slide-out-4')
-        nav4.classList.remove('slide-in-4')
-
-        nav5.classList.add('slide-out-5')
-        nav5.classList.remove('slide-in-5')
+        overlay.classList.replace('overlay-slide-right','overlay-slide-left') 
+        navAnimation('in','out')
     }
 }
-
-
-
-
-
-
 // Event Listners
 menuBars.addEventListener('click', toggleNav);
-nav1.addEventListener('click', toggleNav)
-nav2.addEventListener('click', toggleNav)
-nav3.addEventListener('click', toggleNav)
-nav4.addEventListener('click', toggleNav)
-nav5.addEventListener('click', toggleNav)
+for (let i=0; i<navItems.length;i++)
+{
+    const el=document.getElementById(navItems[i].id);
+    el.addEventListener('click',toggleNav)
+}
